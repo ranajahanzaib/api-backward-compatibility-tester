@@ -1,0 +1,67 @@
+version: 1
+scenarios:
+  - id: customer-profile
+    consumer: web-client
+    description: Fetch a customer profile and preserve its original field types.
+    steps:
+      - id: fetch-customer
+        request:
+          method: GET
+          path: /customers/cust_123
+          headers:
+            Accept: application/json
+        expect:
+          status: 200
+          content_type: application/json
+          json:
+            - pointer: /customer_id
+              type: string
+              required: true
+            - pointer: /status
+              enum: [active, suspended]
+              required: true
+  - id: customer-pagination
+    consumer: partner-integration
+    description: Fetch the next page with the opaque cursor returned by the first page.
+    steps:
+      - id: first-page
+        request:
+          method: GET
+          path: /customers
+          query:
+            limit: "1"
+        expect:
+          status: 200
+          json:
+            - pointer: /pagination/next_cursor
+              type: string
+              required: true
+        capture:
+          next_cursor: /pagination/next_cursor
+      - id: second-page
+        request:
+          method: GET
+          path: /customers
+          query:
+            cursor: "${steps.first-page.next_cursor}"
+        expect:
+          status: 200
+          json:
+            - pointer: /items
+              type: array
+              required: true
+  - id: invalid-customer
+    consumer: mobile-client
+    description: Preserve the documented invalid-customer error contract.
+    steps:
+      - id: invalid-id
+        request:
+          method: GET
+          path: /customers/invalid-id
+        expect:
+          status: 422
+          content_type: application/json
+          json:
+            - pointer: /error/code
+              equals: INVALID_CUSTOMER
+              required: true

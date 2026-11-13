@@ -1,0 +1,14 @@
+[package]
+name = "ecommerce-api"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+description = "Deterministic ecommerce API fixture for api-compat demonstrations"
+publish = false
+
+[[bin]]
+name = "ecommerce-api"
+path = "src/main.rs"
+
+[dependencies]
+serde_json.workspace = true
