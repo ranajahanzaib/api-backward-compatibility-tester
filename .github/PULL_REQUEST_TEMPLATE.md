@@ -1,10 +1,9 @@
-Fixes #<issue_number_goes_here>
+## Summary
 
-> It's a good idea to open an issue first for discussion.
+Describe the user-visible change and its reason. Link related issues when applicable.
 
-**Description**
-A brief summary of what this PR does and why.
+## Validation
 
 - [ ] Tests pass
-- [ ] README updated if needed
-- [ ] No breaking changes (or described below)
+- [ ] Documentation updated where behavior changed
+- [ ] Compatibility or security implications are described
