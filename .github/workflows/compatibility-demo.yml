@@ -1,0 +1,20 @@
+name: Compatibility demonstration
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+  actions: write
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - run: sh scripts/demo.sh
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: api-compat-reports
+          path: reports/
