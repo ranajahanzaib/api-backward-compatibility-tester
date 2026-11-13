@@ -1,0 +1,22 @@
+[package]
+name = "api-compat"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+readme.workspace = true
+description = "CLI for detecting backward-incompatible API changes"
+keywords = ["openapi", "api", "compatibility", "testing"]
+categories = ["command-line-utilities", "development-tools::testing"]
+
+[[bin]]
+name = "api-compat"
+path = "src/main.rs"
+
+[dependencies]
+api-compat-core = { path = "../api-compat-core" }
+anyhow.workspace = true
+clap.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+tokio.workspace = true
