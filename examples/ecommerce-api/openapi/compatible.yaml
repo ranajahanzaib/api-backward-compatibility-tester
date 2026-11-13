@@ -150,11 +150,7 @@ components:
               },
           }
         pagination:
-          {
-            type: object,
-            required: [next_cursor],
-            properties: { next_cursor: { type: string } },
-          }
+          { type: object, properties: { next_cursor: { type: string } } }
     ApiError:
       type: object
       required: [error]

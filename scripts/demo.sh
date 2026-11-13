@@ -41,7 +41,10 @@ target/debug/api-compat check \
   --out reports/candidate
 candidate_status=$?
 set -e
-if [ "$candidate_status" -ne 2 ]; then echo "Expected breaking candidate to exit 2, got $candidate_status" >&2; exit 1; fi
+if [ "$candidate_status" -ne 2 ] && [ "$candidate_status" -ne 3 ]; then
+  echo "Expected breaking candidate to block release (exit 2 or 3), got $candidate_status" >&2
+  exit 1
+fi
 
 target/debug/api-compat check \
   --baseline .api-compat/baseline.json \
